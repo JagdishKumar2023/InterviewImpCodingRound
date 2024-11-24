@@ -1,9 +1,9 @@
-import PhotoSearchApp from "./components/PhotoSearchApp ";
+import Tabledata from "./Tabledata/Tabledata";
 
 const App = () => {
   return (
     <div>
-      <PhotoSearchApp />
+      <Tabledata />
     </div>
   );
 };

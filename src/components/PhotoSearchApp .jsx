@@ -29,7 +29,8 @@ const UserCitySearchApp = () => {
     const filtered = users.filter(
       (user) =>
         user.address.suite.toLowerCase().includes(term) ||
-        user.company.bs.toLowerCase().includes(term)
+        user.company.bs.toLowerCase().includes(term) ||
+        user.address.suite.toLowerCase().includes(term)
     );
 
     console.log("Search Term:", term);
@@ -67,7 +68,7 @@ const UserCitySearchApp = () => {
                 width: "250px",
               }}
             >
-              <h3>{user.name}</h3>
+              <h3>Name: {user.name}</h3>
               <p>Email: {user.email}</p>
               <p>Street: {user.address.suite}</p>
               <p>Company: {user.company.name}</p>

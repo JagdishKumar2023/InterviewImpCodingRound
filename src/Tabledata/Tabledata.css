@@ -1,0 +1,36 @@
+/* Tabledata.css */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  border: 1px solid #cccccc;
+}
+
+thead {
+  background-color: #ff2323;
+  color: #040404;
+}
+
+thead th {
+  padding: 12px 15px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #1d1c1c;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #1f1e1e;
+}
+
+td,
+th {
+  padding: 12px 15px;
+  border: 1px solid #cccccc;
+}
+
+table th {
+  font-weight: bold;
+}
