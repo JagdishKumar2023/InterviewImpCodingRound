@@ -40,7 +40,7 @@ const Tabledata = () => {
                 <td>{id}</td>
                 <td>{name}</td>
                 <td>{email}</td>
-                <td>{address?.city || "N/A"}</td>
+                <td>{address.city || "N/A"}</td>
               </tr>
             );
           })}
