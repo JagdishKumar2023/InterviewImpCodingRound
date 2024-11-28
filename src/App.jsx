@@ -1,9 +1,9 @@
-import Grid from "./Grid/Grid";
+import RandomNumber from "./RandomNumber/RandomNumber";
 
 const App = () => {
   return (
     <div>
-      <Grid />
+      <RandomNumber />
     </div>
   );
 };
