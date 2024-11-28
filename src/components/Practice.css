@@ -1,0 +1,68 @@
+/* Container styling */
+.main-container {
+  width: 100%;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* Search input styling */
+.search-input {
+  width: 80%; /* Adjust width for better responsiveness */
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* No results message styling */
+.no-results {
+  font-size: 14px;
+  color: #999;
+  font-style: italic;
+}
+
+/* User list container */
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%; /* Matches container width */
+  align-items: center; /* Center user cards horizontally */
+}
+
+/* User card styling */
+.user-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  width: 90%; /* Makes cards responsive */
+  max-width: 600px; /* Limits card width */
+  text-align: center; /* Centers text inside cards */
+}
+
+/* User information text */
+.user-name,
+.user-address,
+.user-street {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
+}

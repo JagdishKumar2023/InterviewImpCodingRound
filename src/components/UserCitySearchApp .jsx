@@ -1,116 +1,84 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 const UserCitySearchApp = () => {
-  const [users, setUsers] = useState([]);
-  const [sortingCriteria, setSortingCriteria] = useState({
-    name: false,
-    email: false,
-    company: false,
-  });
+  const [todos, setTodos] = useState([]);
+  const [sortedTodos, setSortedTodos] = useState([]);
+  const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        setUsers(response.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    fetchUsers();
+    // Fetch data from the API
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((response) => response.json())
+      .then((data) => {
+        setTodos(data);
+        setSortedTodos(data); // Initialize sorted data
+      });
   }, []);
 
-  const handleSortingChange = (event) => {
-    const { name, checked } = event.target;
+  const handleSort = (field) => {
+    // Toggle sort on/off for the same field
+    if (sortBy === field) {
+      setSortedTodos(todos); // Reset to default order if toggled off
+      setSortBy("");
+      return;
+    }
 
-    // Update sorting criteria state
-    setSortingCriteria((prev) => ({
-      ...prev,
-      [name]: checked,
-    }));
+    let sorted = [];
+    if (field === "completed") {
+      sorted = [...todos].sort((a, b) => a.completed - b.completed); // Sort by completion status
+    } else {
+      sorted = [...todos].sort((a, b) => {
+        if (a[field] < b[field]) return -1;
+        if (a[field] > b[field]) return 1;
+        return 0;
+      }); // Sort by title
+    }
+
+    setSortedTodos(sorted);
+    setSortBy(field);
   };
-
-  const applySorting = (data) => {
-    let sortedData = [...data];
-
-    // Sort based on the selected criteria
-    if (sortingCriteria.name) {
-      sortedData.sort((a, b) => a.name.localeCompare(b.name));
-    }
-
-    if (sortingCriteria.email) {
-      sortedData.sort((a, b) => a.email.localeCompare(b.email));
-    }
-
-    if (sortingCriteria.company) {
-      sortedData.sort((a, b) => a.company.name.localeCompare(b.company.name));
-    }
-
-    return sortedData;
-  };
-
-  const displayedUsers = applySorting(users);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>User Sorting by Checkbox</h1>
+    <div>
+      <h1>Todos</h1>
 
-      <div style={{ marginBottom: "20px" }}>
-        <h2>Sort By:</h2>
+      <div>
         <label>
           <input
             type="checkbox"
-            name="name"
-            checked={sortingCriteria.name}
-            onChange={handleSortingChange}
+            checked={sortBy === "title"}
+            onChange={() => handleSort("title")}
           />
-          Name
+          Sort by Title
         </label>
-        <label style={{ marginLeft: "10px" }}>
+        <label>
           <input
             type="checkbox"
-            name="email"
-            checked={sortingCriteria.email}
-            onChange={handleSortingChange}
+            checked={sortBy === "completed"}
+            onChange={() => handleSort("completed")}
           />
-          Email
-        </label>
-        <label style={{ marginLeft: "10px" }}>
-          <input
-            type="checkbox"
-            name="company"
-            checked={sortingCriteria.company}
-            onChange={handleSortingChange}
-          />
-          Company Name
+          Sort by Completed Status
         </label>
       </div>
 
-      {displayedUsers.length === 0 ? (
-        <p>No users available.</p>
-      ) : (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-          {displayedUsers.map((user) => (
-            <div
-              key={user.id}
-              style={{
-                border: "1px solid #ddd",
-                padding: "10px",
-                width: "250px",
-              }}
-            >
-              <h3>Name: {user.name}</h3>
-              <p>Email: {user.email}</p>
-              <p>Street: {user.address.suite}</p>
-              <p>Company: {user.company.name}</p>
-              <p>BS: {user.company.bs}</p>
-            </div>
+      <table border="1" cellPadding="10">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Completed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedTodos.map((todo) => (
+            <tr key={todo.id}>
+              <td>{todo.id}</td>
+              <td>{todo.title}</td>
+              <td>{todo.completed ? "✅" : "❌"}</td>
+            </tr>
           ))}
-        </div>
-      )}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -1,9 +1,9 @@
-import UserCitySearchApp from "./components/PhotoSearchApp ";
+import Grid from "./Grid/Grid";
 
 const App = () => {
   return (
     <div>
-      <UserCitySearchApp />
+      <Grid />
     </div>
   );
 };

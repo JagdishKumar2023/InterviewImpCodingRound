@@ -12,7 +12,6 @@ const UserCitySearchApp = () => {
         const response = await axios.get(
           "https://jsonplaceholder.typicode.com/users"
         );
-        console.log("Fetched Users:", response.data);
         setUsers(response.data);
         setFilteredUsers(response.data);
       } catch (error) {
@@ -32,9 +31,6 @@ const UserCitySearchApp = () => {
         user.company.bs.toLowerCase().includes(term) ||
         user.address.suite.toLowerCase().includes(term)
     );
-
-    console.log("Search Term:", term);
-    console.log("Filtered Users:", filtered);
 
     setFilteredUsers(filtered);
   };

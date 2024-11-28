@@ -1,0 +1,36 @@
+/* Body styling to center the grid */
+body {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Grid container */
+.grid-table {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 3fr; /* Defining column widths */
+  gap: 20px; /* Space between cells */
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #4a4040;
+  width: 90%; /* Limit the width of the grid */
+}
+
+/* Header styling */
+
+.grid-header {
+  background-color: #007bff;
+  color: rgb(15, 20, 19);
+  padding: 7px;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+/* Cell styling */
+
+.grid-cell {
+  background-color: #050404;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
