@@ -10,9 +10,8 @@ const RandomNumber = () => {
 
   return (
     <div>
-      <h1>{randomNumber}</h1>
+      <h1>Generate Number:{randomNumber}</h1>
       <button onClick={generateRandomNumber}>Generate number</button>
-      {<p>Generate number: {randomNumber}</p>}
     </div>
   );
 };

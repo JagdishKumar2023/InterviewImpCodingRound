@@ -1,9 +1,9 @@
-import RandomNumber from "./RandomNumber/RandomNumber";
+import CheckboxApp from "./Checkbox/CheckboxApp ";
 
 const App = () => {
   return (
     <div>
-      <RandomNumber />
+      <CheckboxApp />
     </div>
   );
 };
