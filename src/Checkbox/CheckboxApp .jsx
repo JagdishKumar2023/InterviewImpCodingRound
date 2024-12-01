@@ -1,58 +1,56 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const CheckboxApp = () => {
   const [comments, setComments] = useState([]);
   const [selectedComments, setSelectedComments] = useState([]);
 
-  // Fetch comments from the API
+  // Fetch comments from the API using Axios
   useEffect(() => {
-    async function fetchComments() {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/comments"
-      );
-      const data = await response.json(); // Parse the response as JSON
-      console.log(data); // Log the fetched data
-
-      // Limit to first 10 comments for simplicity and log the sliced data
-      setComments(data.slice(0, 10));
-    }
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/comments"
+        );
+        setComments(response.data.slice(0, 50));
+      } catch (err) {
+        console.log(err);
+      }
+    };
     fetchComments();
   }, []);
 
   // Toggle comment selection
-  const handleCheckboxChange = (id) => {
-    setSelectedComments((prevSelected) =>
-      prevSelected.includes(id)
-        ? prevSelected.filter((commentId) => commentId !== id)
-        : [...prevSelected, id]
+  const toggleSelection = (id) => {
+    setSelectedComments((prev) =>
+      prev.includes(id) ? prev.filter((cid) => cid !== id) : [...prev, id]
     );
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Comments Selection</h1>
-
-      {comments.map((comment) => (
-        <div key={comment.id}>
-          <label>
+      <div style={{ marginBottom: "20px" }}>
+        {comments.map(({ id, email }) => (
+          <label key={id} style={{ display: "block", margin: "5px 0" }}>
             <input
               type="checkbox"
-              checked={selectedComments.includes(comment.id)}
-              onChange={() => handleCheckboxChange(comment.id)}
+              checked={selectedComments.includes(id)}
+              onChange={() => toggleSelection(id)}
             />
-            {comment.email} {/* Display the email */}
+            {email}
           </label>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <h2>Selected Comments:</h2>
       <ul>
         {comments
-          .filter((comment) => selectedComments.includes(comment.id))
-          .map((comment) => (
-            <li key={comment.id}>
-              <strong>Email:</strong> {comment.email} <br />
-              <strong>Post ID:</strong> {comment.postId}
+          .filter(({ id }) => selectedComments.includes(id))
+          .map(({ id, email, postId }) => (
+            <li key={id} style={{ marginBottom: "10px" }}>
+              <strong>Email:</strong> {email} <br />
+              <strong>Post ID:</strong> {postId}
             </li>
           ))}
       </ul>

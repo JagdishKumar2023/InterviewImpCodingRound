@@ -6,17 +6,16 @@ const API = "https://jsonplaceholder.typicode.com/users";
 const Tabledata = () => {
   const [users, setUsers] = useState([]);
 
-  const fetchUsers = async () => {
-    try {
-      const res = await fetch(API);
-      const data = await res.json();
-      setUsers(data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch(API);
+        const data = await res.json();
+        setUsers(data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
     fetchUsers();
   }, []);
 
